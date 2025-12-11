@@ -15,12 +15,21 @@ connectCloudinary()
 
 // middlewares
 app.use(express.json())
-app.use(express.urlencoded({ extended: true })); // for form submissions
-app.use(cors())
+app.use(express.urlencoded({ extended: true }))
+
+app.use(cors({
+    origin: [
+        "http://localhost:5173",
+        "https://mediplus-frontend-flame.vercel.app",
+        "https://mediplus-admin.vercel.app"
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+}))
 
 // api end points
 app.use('/api/admin', adminRouter)
-console.log("✅ Admin routes loaded.");
+console.log("✅ Admin routes loaded.")
 
 app.use('/api/doctor', doctorRouter)
 app.use('/api/user', userRouter)
